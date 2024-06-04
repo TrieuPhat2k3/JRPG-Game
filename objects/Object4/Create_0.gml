@@ -1,1 +1,0 @@
-instance_deactivate_all(true); //Tells the instance to not include itself in this so oBattle will be the only instance running.
