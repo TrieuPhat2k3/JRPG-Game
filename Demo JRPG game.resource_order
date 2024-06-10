@@ -33,6 +33,7 @@
     {"name":"BattleFunction","order":4,"path":"scripts/BattleFunction/BattleFunction.yy",},
     {"name":"GameData","order":3,"path":"scripts/GameData/GameData.yy",},
     {"name":"Init","order":5,"path":"scripts/Init/Init.yy",},
+    {"name":"MenuFunction","order":6,"path":"scripts/MenuFunction/MenuFunction.yy",},
     {"name":"sAttackBonk","order":21,"path":"sprites/sAttackBonk/sAttackBonk.yy",},
     {"name":"sAttackCure","order":1,"path":"sprites/sAttackCure/sAttackCure.yy",},
     {"name":"sAttackExplode","order":6,"path":"sprites/sAttackExplode/sAttackExplode.yy",},

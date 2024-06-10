@@ -68,7 +68,7 @@ for (var i = 0; i < array_length(partyUnits); i++)
 	draw_text(x+COLUMN_HP+50,y+130+(i*12),string(_char.hp) + "/" + string(_char.hpMax));
 	
 	draw_set_color(c_white);
-	if (_char.mp < (_char.mpMax + 0.5)) draw_set_color(c_orange);
+	if (_char.mp < (_char.mpMax * 0.5)) draw_set_color(c_orange);
 	if (_char.hp <= 0) draw_set_color(c_red);
 	draw_text(x+COLUMN_MP+50,y+130+(i*12),string(_char.mp) + "/" + string(_char.mpMax));
 	
