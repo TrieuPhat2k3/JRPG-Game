@@ -28,6 +28,7 @@
     {"name":"oBattleUnit","order":1,"path":"objects/oBattleUnit/oBattleUnit.yy",},
     {"name":"oBattleUnitEnemy","order":3,"path":"objects/oBattleUnitEnemy/oBattleUnitEnemy.yy",},
     {"name":"oBattleUnitPC","order":2,"path":"objects/oBattleUnitPC/oBattleUnitPC.yy",},
+    {"name":"oMenu","order":6,"path":"objects/oMenu/oMenu.yy",},
     {"name":"oPlayer","order":2,"path":"objects/oPlayer/oPlayer.yy",},
     {"name":"oSlime","order":1,"path":"objects/oSlime/oSlime.yy",},
     {"name":"BattleFunction","order":4,"path":"scripts/BattleFunction/BattleFunction.yy",},
