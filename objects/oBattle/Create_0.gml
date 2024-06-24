@@ -9,6 +9,7 @@ turnCount = 0;
 roundCount = 0;
 battleWaitTimeFrames = 30;
 battleWaitTimeRemaining = 0; // Fixed typo here
+battleText = "";
 currentUser = noone;
 currentAction = -1;
 currentTargets = noone;
@@ -126,6 +127,7 @@ BeginAction = function(_user, _action, _targets) {
     currentUser = _user;
     currentAction = _action;
     currentTargets = _targets;
+	battleText = string_ext(_action.description, [_user.name]);
     if (!is_array(currentTargets)) currentTargets = [_targets];
     battleWaitTimeRemaining = battleWaitTimeFrames;
     with (_user) {
@@ -180,7 +182,8 @@ BattleStateVictoryCheck = function() {
 }
 
 BattleStateTurnProgression = function() {
-    turnCount++;
+    battleText = ""; // Reset battle
+	turnCount++; // Total turns
     turn++;
     // Loop turns
     if (turn > array_length(unitTurnOrder) - 1) {
