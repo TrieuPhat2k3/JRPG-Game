@@ -36,7 +36,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.4.1.152",
+    "IDEVersion":"2024.6.2.162",
   },
   "name":"Demo JRPG game",
   "resources":[
@@ -44,6 +44,7 @@
     {"id":{"name":"fnM5x7","path":"fonts/fnM5x7/fnM5x7.yy",},},
     {"id":{"name":"fnOpenSansPX","path":"fonts/fnOpenSansPX/fnOpenSansPX.yy",},},
     {"id":{"name":"README","path":"notes/README/README.yy",},},
+    {"id":{"name":"oBat","path":"objects/oBat/oBat.yy",},},
     {"id":{"name":"oBattle","path":"objects/oBattle/oBattle.yy",},},
     {"id":{"name":"oBattleEffect","path":"objects/oBattleEffect/oBattleEffect.yy",},},
     {"id":{"name":"oBattleFloatingText","path":"objects/oBattleFloatingText/oBattleFloatingText.yy",},},

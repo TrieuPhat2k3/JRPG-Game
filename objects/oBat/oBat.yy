@@ -1,20 +1,17 @@
 {
   "$GMObject":"",
-  "%Name":"oBattleUnitEnemy",
-  "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-  ],
+  "%Name":"oBat",
+  "eventList":[],
   "managed":true,
-  "name":"oBattleUnitEnemy",
+  "name":"oBat",
   "overriddenProperties":[],
   "parent":{
-    "name":"Combat",
-    "path":"folders/Objects/Combat.yy",
+    "name":"Field",
+    "path":"folders/Objects/Field.yy",
   },
   "parentObjectId":{
-    "name":"oBattleUnit",
-    "path":"objects/oBattleUnit/oBattleUnit.yy",
+    "name":"oSlime",
+    "path":"objects/oSlime/oSlime.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,
@@ -33,7 +30,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"sBat",
+    "path":"sprites/sBat/sBat.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }

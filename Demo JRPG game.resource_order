@@ -23,6 +23,7 @@
   "ResourceOrderSettings":[
     {"name":"fnM3x6","order":2,"path":"fonts/fnM3x6/fnM3x6.yy",},
     {"name":"fnM5x7","order":1,"path":"fonts/fnM5x7/fnM5x7.yy",},
+    {"name":"oBat","order":3,"path":"objects/oBat/oBat.yy",},
     {"name":"oBattleEffect","order":14,"path":"objects/oBattleEffect/oBattleEffect.yy",},
     {"name":"oBattleFloatingText","order":4,"path":"objects/oBattleFloatingText/oBattleFloatingText.yy",},
     {"name":"oBattleUnit","order":1,"path":"objects/oBattleUnit/oBattleUnit.yy",},

@@ -34,3 +34,4 @@ function BattleChangeHP(_target, _amount, _AliveDeadOrEither = 0)
 	);
 	if (!_failed) _target.hp = clamp(_target.hp + _amount, 0, _target.hpMax);
 }
+

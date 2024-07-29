@@ -1,4 +1,4 @@
-spdWalk = 3;
+spdWalk = 2;
 animIndex = 0;
 
 function FourDirectionAnimate() {
