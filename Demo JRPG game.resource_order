@@ -62,5 +62,6 @@
     {"name":"sSlimeAttack","order":1,"path":"sprites/sSlimeAttack/sSlimeAttack.yy",},
     {"name":"sTiles","order":3,"path":"sprites/sTiles/sTiles.yy",},
     {"name":"sTurnIndicator","order":2,"path":"sprites/sTurnIndicator/sTurnIndicator.yy",},
+    {"name":"sWall","order":4,"path":"sprites/sWall/sWall.yy",},
   ],
 }

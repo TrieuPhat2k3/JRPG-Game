@@ -88,6 +88,7 @@
     {"id":{"name":"sSlimeAttack","path":"sprites/sSlimeAttack/sSlimeAttack.yy",},},
     {"id":{"name":"sTiles","path":"sprites/sTiles/sTiles.yy",},},
     {"id":{"name":"sTurnIndicator","path":"sprites/sTurnIndicator/sTurnIndicator.yy",},},
+    {"id":{"name":"sWall","path":"sprites/sWall/sWall.yy",},},
     {"id":{"name":"tTiles","path":"tilesets/tTiles/tTiles.yy",},},
   ],
   "resourceType":"GMProject",
