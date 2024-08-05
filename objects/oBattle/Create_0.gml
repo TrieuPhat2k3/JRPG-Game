@@ -178,7 +178,21 @@ BattleStatePerformAction = function() {
 }
 
 BattleStateVictoryCheck = function() {
-    battleState = BattleStateTurnProgression;
+    // Check if all enemies are defeated
+    var allEnemiesDefeated = true;
+    for (var i = 0; i < array_length(unitTurnOrder); i++) {
+        var unit = unitTurnOrder[i];
+        if (unit.object_index == oBattleUnitEnemy && unit.hp > 0) {
+            allEnemiesDefeated = false;
+            break;
+        }
+    }
+    if (allEnemiesDefeated) {
+        global.battleOutcome = "win";
+        room_goto(Room1);; // Returns back to the same room.
+    } else {
+        battleState = BattleStateTurnProgression;
+    }
 }
 
 BattleStateTurnProgression = function() {

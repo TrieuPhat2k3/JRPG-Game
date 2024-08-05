@@ -48,6 +48,7 @@
     {"name":"sBg","order":1,"path":"sprites/sBg/sBg.yy",},
     {"name":"sBgField","order":5,"path":"sprites/sBgField/sBgField.yy",},
     {"name":"sBox","order":3,"path":"sprites/sBox/sBox.yy",},
+    {"name":"sCol","order":5,"path":"sprites/sCol/sCol.yy",},
     {"name":"sLuluAttack","order":4,"path":"sprites/sLuluAttack/sLuluAttack.yy",},
     {"name":"sLuluDefend","order":5,"path":"sprites/sLuluDefend/sLuluDefend.yy",},
     {"name":"sLuluDown","order":6,"path":"sprites/sLuluDown/sLuluDown.yy",},
@@ -63,5 +64,6 @@
     {"name":"sTiles","order":3,"path":"sprites/sTiles/sTiles.yy",},
     {"name":"sTurnIndicator","order":2,"path":"sprites/sTurnIndicator/sTurnIndicator.yy",},
     {"name":"sWall","order":4,"path":"sprites/sWall/sWall.yy",},
+    {"name":"tCol","order":1,"path":"tilesets/tCol/tCol.yy",},
   ],
 }
