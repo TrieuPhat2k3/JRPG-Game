@@ -189,7 +189,7 @@ BattleStateVictoryCheck = function() {
     }
     if (allEnemiesDefeated) {
         global.battleOutcome = "win";
-        room_goto(Room1);; // Returns back to the same room.
+        room_goto(rm_testzone);; // Returns back to the same room.
     } else {
         battleState = BattleStateTurnProgression;
     }
