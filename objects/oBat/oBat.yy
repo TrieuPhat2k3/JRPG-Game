@@ -9,10 +9,7 @@
     "name":"Field",
     "path":"folders/Objects/Field.yy",
   },
-  "parentObjectId":{
-    "name":"oSlime",
-    "path":"objects/oSlime/oSlime.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

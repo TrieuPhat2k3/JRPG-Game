@@ -11,8 +11,8 @@
     {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oStartMenuParent","path":"objects/oStartMenuParent/oStartMenuParent.yy",},"propertyId":{"name":"button_text","path":"objects/oStartMenuParent/oStartMenuParent.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"Play",},
   ],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Menu",
+    "path":"folders/Objects/Menu.yy",
   },
   "parentObjectId":{
     "name":"oStartMenuParent",
