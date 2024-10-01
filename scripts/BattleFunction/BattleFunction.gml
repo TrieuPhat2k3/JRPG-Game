@@ -35,3 +35,16 @@ function BattleChangeHP(_target, _amount, _AliveDeadOrEither = 0)
 	if (!_failed) _target.hp = clamp(_target.hp + _amount, 0, _target.hpMax);
 }
 
+function BattleChangeMP(_unit, _amount) {
+    // Check if the unit exists and has an mp variable
+    if (variable_instance_exists(_unit, "mp")) {
+        _unit.mp += _amount; // Add (or subtract) MP by _amount
+
+        // Ensure MP does not go below 0 or exceed the maximum allowed
+        if (_unit.mp < 0) {
+            _unit.mp = 0;
+        } else if (_unit.mp > _unit.mpMax) {
+            _unit.mp = _unit.mpMax;
+        }
+    }
+}
