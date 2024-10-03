@@ -30,7 +30,7 @@
           -2147483648,2,64,63,-17,-2147483648,1,63,-100,-2147483648,1,64,-171,-2147483648,1,78,-43,-2147483648,
           1,63,-157,-2147483648,1,63,-43,-2147483648,
         ],"TileDataFormat":1,},"tilesetId":{"name":"tTiles","path":"tilesets/tTiles/tTiles.yy",},"userdefinedDepth":false,"visible":true,"x":0,"y":0,},
-    {"$GMRTileLayer":"","%Name":"TilesCollision","depth":200,"effectEnabled":true,"effectType":"none","gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"TilesCollision","properties":[],"resourceType":"GMRTileLayer","resourceVersion":"2.0","tiles":{"SerialiseHeight":23,"SerialiseWidth":40,"TileCompressedData":[
+    {"$GMRTileLayer":"","%Name":"Tiles_Collision","depth":200,"effectEnabled":true,"effectType":"none","gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"Tiles_Collision","properties":[],"resourceType":"GMRTileLayer","resourceVersion":"2.0","tiles":{"SerialiseHeight":23,"SerialiseWidth":40,"TileCompressedData":[
           -47,1,-32,-2147483648,-6,1,-34,-2147483648,-4,1,-36,-2147483648,-2,1,-38,-2147483648,-2,1,-38,-2147483648,
           -2,1,-38,-2147483648,-2,1,-33,-2147483648,-7,1,-29,-2147483648,-11,1,-27,-2147483648,-13,1,-26,-2147483648,
           -14,1,-24,-2147483648,-16,1,-23,-2147483648,-17,1,-22,-2147483648,-18,1,-22,-2147483648,-10,1,-2,-2147483648,
