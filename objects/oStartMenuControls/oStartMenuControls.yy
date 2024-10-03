@@ -1,13 +1,15 @@
 {
   "$GMObject":"",
-  "%Name":"oBat",
-  "eventList":[],
+  "%Name":"oStartMenuControls",
+  "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+  ],
   "managed":true,
-  "name":"oBat",
+  "name":"oStartMenuControls",
   "overriddenProperties":[],
   "parent":{
-    "name":"Field",
-    "path":"folders/Objects/Field.yy",
+    "name":"Menu",
+    "path":"folders/Objects/Menu.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -27,10 +29,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"sBat",
-    "path":"sprites/sBat/sBat.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }
