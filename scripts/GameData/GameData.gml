@@ -28,7 +28,7 @@ global.actionLibrary =
 		targetEnemyByDefault : true,
 		targetAll : MODE.VARIES,
 		userAnimation : "cast",
-		effectSprite : sAttackIce,
+		effectSprite : sAttackFire,
 		effectOnTarget : MODE.ALWAYS,
 		func : function(_user, _targets)
 		{
@@ -41,9 +41,55 @@ global.actionLibrary =
 			BattleChangeMP(_user, -global.actionLibrary.ice.mpCost);
 			
 		}
-	}
-	
-	
+	},
+	fire :
+	{
+		name : "Fire",
+		description : "{0} casts Fire!",
+		subMenu : "Magic",
+		mpCost : 10,
+		targetRequired : true,
+		targetEnemyByDefault : true,
+		targetAll : MODE.VARIES,
+		userAnimation : "cast",
+		effectSprite : sAttackIce,
+		effectOnTarget : MODE.ALWAYS,
+		func : function(_user, _targets)
+		{
+			for (var i = 0; i < array_length(_targets); i++)
+			{
+				var _damage = irandom_range(18,22);
+				if (array_length(_targets) > 1) _damage = ceil(_damage*0.75);
+				BattleChangeHP(_targets[i], -_damage);
+			}
+			BattleChangeMP(_user, -global.actionLibrary.fire.mpCost);
+			
+		}
+	 },
+	 heal :
+	 {
+		name : "Heal",
+		description : "{0} casts Heal!",
+		subMenu : "Magic",
+		mpCost : 10,
+		targetRequired : true,
+		targetEnemyByDefault : true,
+		targetAll : MODE.VARIES,
+		userAnimation : "cast",
+		effectSprite : sAttackIce,
+		effectOnTarget : MODE.ALWAYS,
+		func : function(_user, _targets)
+		{
+			for (var i = 0; i < array_length(_targets); i++)
+			{
+				var _damage = irandom_range(15,20);
+				if (array_length(_targets) > 1) _damage = ceil(_damage*0.75);
+				BattleChangeHP(_targets[i], -_damage);
+			}
+			BattleChangeMP(_user, -global.actionLibrary.heal.mpCost);
+			
+		}
+	 }
 	
 }
 

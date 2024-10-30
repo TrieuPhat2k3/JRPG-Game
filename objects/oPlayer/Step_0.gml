@@ -10,7 +10,7 @@ var _newY = y + lengthdir_y(spdWalk * _inputM, _inputD);
 
 // Fetch the tilemap layer (if not fetched in create event)
 if (!variable_instance_exists(self, "collisionLayer")) {
-    collisionLayer = layer_tilemap_get_id("CollisionLayerName"); // Replace with your actual tilemap layer name
+    collisionLayer = layer_tilemap_get_id("CollisionLayerName");
 }
 
 // Perform collision checks in both the X and Y directions separately
@@ -21,7 +21,6 @@ var _collisionTileY = tilemap_get_at_pixel(collisionLayer, x, _newY);
 if (_collisionTileY == 0) {
     y = _newY;
 }
-
 // Allow movement in X if there’s no collision in X direction
 if (_collisionTileX == 0) {
     x = _newX;
@@ -29,14 +28,13 @@ if (_collisionTileX == 0) {
 
 // Check if there is any movement in either direction
 if (_inputM != 0 && (_collisionTileX == 0 || _collisionTileY == 0)) {
-    // If there's movement in any direction (X or Y) and no collision in that direction, continue animation
+    // If there's movement in any direction (X or Y) and no collision in that direction, will continue animation
     image_speed = 1;
-    direction = _inputD;  // Update direction based on input
+    direction = _inputD;
 } else if (_inputM != 0) {
     // If there's movement but blocked in one direction, still keep the animation playing
     image_speed = 1;
 } else {
-    // No movement, stop animation
     image_speed = 0;
     animIndex = 0;
 }
