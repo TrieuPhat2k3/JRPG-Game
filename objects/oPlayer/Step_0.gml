@@ -17,22 +17,21 @@ if (!variable_instance_exists(self, "collisionLayer")) {
 var _collisionTileX = tilemap_get_at_pixel(collisionLayer, _newX, y);
 var _collisionTileY = tilemap_get_at_pixel(collisionLayer, x, _newY);
 
-// Allow movement in Y if there’s no collision in Y direction
+// Allow movement in Y and X if there’s no collision in both directions
 if (_collisionTileY == 0) {
     y = _newY;
 }
-// Allow movement in X if there’s no collision in X direction
 if (_collisionTileX == 0) {
     x = _newX;
 }
 
 // Check if there is any movement in either direction
 if (_inputM != 0 && (_collisionTileX == 0 || _collisionTileY == 0)) {
-    // If there's movement in any direction (X or Y) and no collision in that direction, will continue animation
+    // Checks if there's movement in any direction (X or Y) and no collision in that direction, will continue animation
     image_speed = 1;
     direction = _inputD;
 } else if (_inputM != 0) {
-    // If there's movement but blocked in one direction, still keep the animation playing
+    // Also checks if there's movement but blocked in one direction, still keep the animation playing
     image_speed = 1;
 } else {
     image_speed = 0;

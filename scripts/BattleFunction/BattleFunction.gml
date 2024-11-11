@@ -1,5 +1,9 @@
 function NewEncounter(_enemies, _bg)
-{
+{	
+	// Music plays
+	audio_play_sound(snd_battle, true, true);
+	instance_create_depth(0, 0, -9999, oTransition);
+	
 	instance_create_depth
 	(
 		camera_get_view_x(view_camera[0]),

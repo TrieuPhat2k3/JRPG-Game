@@ -188,6 +188,10 @@ BattleStateVictoryCheck = function() {
         }
     }
     if (allEnemiesDefeated) {
+		audio_stop_sound(snd_battle);
+		
+		
+		instance_create_depth(0, 0, -9999, oTransition);
         global.battleOutcome = "win";
         room_goto(rm_testzone);; // Returns back to the same room.
     } else {
