@@ -67,6 +67,7 @@
     {"id":{"name":"GameData","path":"scripts/GameData/GameData.yy",},},
     {"id":{"name":"Init","path":"scripts/Init/Init.yy",},},
     {"id":{"name":"MenuFunction","path":"scripts/MenuFunction/MenuFunction.yy",},},
+    {"id":{"name":"snd_battle","path":"sounds/snd_battle/snd_battle.yy",},},
     {"id":{"name":"sAttackBonk","path":"sprites/sAttackBonk/sAttackBonk.yy",},},
     {"id":{"name":"sAttackCure","path":"sprites/sAttackCure/sAttackCure.yy",},},
     {"id":{"name":"sAttackExplode","path":"sprites/sAttackExplode/sAttackExplode.yy",},},
