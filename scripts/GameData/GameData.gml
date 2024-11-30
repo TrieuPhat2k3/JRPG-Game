@@ -20,16 +20,17 @@ global.actionLibrary =
 	},
 	ice :
 	{
-		name : "Ice",
-		description : "{0} casts Ice!",
+		name : "Ice Blast",
+		description : "{0} casts Ice Blast!",
 		subMenu : "Magic",
 		mpCost : 4,
 		targetRequired : true,
 		targetEnemyByDefault : true,
 		targetAll : MODE.VARIES,
 		userAnimation : "cast",
-		effectSprite : sAttackFire,
+		effectSprite : sAttackIce,
 		effectOnTarget : MODE.ALWAYS,
+		sound : mus_sfx_spellcast,
 		func : function(_user, _targets)
 		{
 			for (var i = 0; i < array_length(_targets); i++)
@@ -44,15 +45,15 @@ global.actionLibrary =
 	},
 	fire :
 	{
-		name : "Fire",
-		description : "{0} casts Fire!",
+		name : "Fire Ball",
+		description : "{0} casts Fire Ball!",
 		subMenu : "Magic",
-		mpCost : 10,
+		mpCost : 12,
 		targetRequired : true,
 		targetEnemyByDefault : true,
 		targetAll : MODE.VARIES,
 		userAnimation : "cast",
-		effectSprite : sAttackIce,
+		effectSprite : sAttackFire,
 		effectOnTarget : MODE.ALWAYS,
 		func : function(_user, _targets)
 		{
@@ -68,15 +69,15 @@ global.actionLibrary =
 	 },
 	 heal :
 	 {
-		name : "Heal",
-		description : "{0} casts Heal!",
+		name : "Cat Food",
+		description : "{0} casts Cat Food!",
 		subMenu : "Magic",
 		mpCost : 10,
 		targetRequired : true,
 		targetEnemyByDefault : true,
 		targetAll : MODE.VARIES,
 		userAnimation : "cast",
-		effectSprite : sAttackIce,
+		effectSprite : sAttackHeal,
 		effectOnTarget : MODE.ALWAYS,
 		func : function(_user, _targets)
 		{
@@ -89,7 +90,41 @@ global.actionLibrary =
 			BattleChangeMP(_user, -global.actionLibrary.heal.mpCost);
 			
 		}
-	 }
+	 },
+	 defend :
+	 {
+		name : "Defend",
+		description : "{0} takes a defensive stance!",
+		subMenu : -1,
+		targetRequired : false,
+		targetEnemyByDefault : false,
+		targetAll : MODE.NEVER,
+		userAnimation : "defend",
+		effectSprite : sLuluDefend,
+		effectOnTarget : MODE.NEVER,
+		func : function(_user, _targets)
+		{
+			// Defend logics can be added here.
+			_user.defenseBoost = true;
+			_user.sprite_index = _user.sprites.defend;
+		}
+},
+	escape :
+	{
+		name : "Escape",
+		description : "{0} attempts to flee!",
+		subMenu : -1,
+		targetRequired : false,
+		targetEnemyByDefault : false,
+		targetAll : MODE.NEVER,
+		userAnimation : "idle", // No special animation
+		effectOnTarget : MODE.NEVER,
+		func : function(_user, _targets)
+    {
+		// Escape logic can be added here.
+    },
+	
+}
 	
 }
 
@@ -113,7 +148,7 @@ global.party =
 		mpMax: 15,
 		strength: 6,
 		sprites : { idle: sLuluIdle, attack: sLuluAttack, defend: sLuluDefend, down: sLuluDown},
-		actions : [global.actionLibrary.attack]
+		actions : [global.actionLibrary.attack, global.actionLibrary.defend]
 	}
 	,
 	{
@@ -124,7 +159,7 @@ global.party =
 		mpMax: 30,
 		strength: 4,
 		sprites : { idle: sQuestyIdle, attack: sQuestyCast, cast: sQuestyCast, down: sQuestyDown},
-		actions : [global.actionLibrary.attack, global.actionLibrary.ice]
+		actions : [global.actionLibrary.attack, global.actionLibrary.ice, global.actionLibrary.fire]
 	}
 ]
 
@@ -158,8 +193,8 @@ global.enemies =
 	bat: 
 	{
 		name: "Bat",
-		hp: 15,
-		hpMax: 15,
+		hp: 24,
+		hpMax: 24,
 		mp: 0,
 		mpMax: 0,
 		strength: 4,
@@ -179,8 +214,3 @@ global.enemies =
 		}
 	}
 }
-
-
-
-
-

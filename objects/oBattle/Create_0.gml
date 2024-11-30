@@ -91,11 +91,13 @@ function BattleStateSelectAction()
 					//create or add to a submenu
 					if (is_undefined(_subMenus[$ _action.subMenu]))
 					{
+						// Initialize the submenu array if it doesn't exist
 						variable_struct_set(_subMenus, _action.subMenu, [[_nameAndCount, MenuSelectAction, [_unit, _action], _available]]);
 					}
 					else
 					{
-						array_push(_subMenu[$ _action.subMenu], [_nameAndCount, MenuSelectAction, [_unit, _action], _available]);
+						// Add to the existing submenu array
+						array_push(_subMenus[$ _action.subMenu], [_nameAndCount, MenuSelectAction, [_unit, _action], _available]);
 					}
 					
 				}
@@ -188,12 +190,9 @@ BattleStateVictoryCheck = function() {
         }
     }
     if (allEnemiesDefeated) {
-		audio_stop_sound(snd_battle);
-		
-		
-		instance_create_depth(0, 0, -9999, oTransition);
+		audio_stop_sound(mus_battle1);
         global.battleOutcome = "win";
-        room_goto(rm_testzone);; // Returns back to the same room.
+        room_goto(rm_testzone); // Returns back to the same room.
     } else {
         battleState = BattleStateTurnProgression;
     }

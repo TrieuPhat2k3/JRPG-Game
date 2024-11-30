@@ -1,9 +1,8 @@
 function NewEncounter(_enemies, _bg)
 {	
 	// Music plays
-	audio_play_sound(snd_battle, true, true);
-	instance_create_depth(0, 0, -9999, oTransition);
-	
+	audio_play_sound(mus_battle1, true, true);
+	// Battle Stage
 	instance_create_depth
 	(
 		camera_get_view_x(view_camera[0]),
@@ -23,6 +22,14 @@ function BattleChangeHP(_target, _amount, _AliveDeadOrEither = 0)
 	
 	var _col = c_white;
 	if (_amount > 0) _col = c_lime;
+	// Apply defense reduction if the unit is defending
+	/*
+	if (_amount < 0 && variable_instance_exists(_target, "defenseBoost") && _target.defenseBoost) 
+	{
+		_amount = floor(_amount * 0.5); // Halve incoming damage
+	}
+	*/
+	// Show floating text for feedback
 	if (_failed)
 	{
 		_col = c_white;
@@ -36,6 +43,7 @@ function BattleChangeHP(_target, _amount, _AliveDeadOrEither = 0)
 		oBattleFloatingText,
 		{font: fnM5x7, col: _col, text: string(_amount)}
 	);
+	// Apply the HP change if valid.
 	if (!_failed) _target.hp = clamp(_target.hp + _amount, 0, _target.hpMax);
 }
 

@@ -1,4 +1,4 @@
-	//Draw background art
+//Draw background art
 draw_sprite(battleBackground,0,x,y);
 
 //Draw units in depth order
