@@ -2,6 +2,7 @@ function NewEncounter(_enemies, _bg)
 {	
 	// Music plays
 	audio_play_sound(mus_battle1, true, true);
+	audio_sound_gain(mus_battle1, 0.2 ,0);
 	// Battle Stage
 	instance_create_depth
 	(
@@ -59,4 +60,15 @@ function BattleChangeMP(_unit, _amount) {
             _unit.mp = _unit.mpMax;
         }
     }
+}
+
+function LevelUp(_character) {
+    _character.level += 1;
+    _character.hpMax += 10; // Increase max HP
+    _character.mpMax += 5;  // Increase max MP
+    _character.strength += 2; // Increase strength
+    _character.xp -= _character.xpToNextLevel; // Deduct XP for the new level
+    _character.xpToNextLevel = ceil(_character.xpToNextLevel * 1.5); // Increase XP requirement
+    _character.hp = _character.hpMax; // Heal fully
+    _character.mp = _character.mpMax; // Restore MP
 }

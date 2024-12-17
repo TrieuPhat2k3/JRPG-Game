@@ -189,12 +189,60 @@ BattleStateVictoryCheck = function() {
             break;
         }
     }
+    
     if (allEnemiesDefeated) {
-		audio_stop_sound(mus_battle1);
-        global.battleOutcome = "win";
-        room_goto(rm_testzone); // Returns back to the same room.
+        // Stop battle music
+        audio_stop_sound(mus_battle1);
+        
+        // Calculate total XP gained
+        totalXP = 0; // Save total XP globally so we can process it later
+        currentPartyIndex = 0; // Start with the first party member
+        
+        for (var i = 0; i < array_length(unitTurnOrder); i++) {
+            var unit = unitTurnOrder[i];
+            if (unit.object_index == oBattleUnitEnemy && unit.hp <= 0) {
+                totalXP += unit.xpValue; // XP from defeated enemies
+            }
+        }
+        
+        battleState = BattleStateDistributeXP; // Start XP distribution
     } else {
         battleState = BattleStateTurnProgression;
+    }
+};
+
+BattleStateDistributeXP = function() {
+    if (currentPartyIndex >= array_length(global.party)) {
+        // All party members have been processed; return to map
+        global.battleOutcome = "win";
+        room_goto(rm_testzone);
+        return;
+    }
+    
+    var partyMember = global.party[currentPartyIndex];
+    if (partyMember.hp > 0) { // Only alive members receive XP
+        partyMember.xp += totalXP;
+        
+        while (partyMember.xp >= partyMember.xpToNextLevel) {
+            partyMember.xp -= partyMember.xpToNextLevel;
+            LevelUp(partyMember);
+            
+            // Show level-up text and pause
+            battleText = partyMember.name + " leveled up to level " + string(partyMember.level) + "!";
+            battleWaitTimeRemaining = 180; // Wait ~3 seconds (60 frames per second)
+            battleState = BattleStateShowText; // Change state to show text
+            return; // Pause here and wait for the next state
+        }
+    }
+    
+    // Move to the next party member
+    currentPartyIndex++;
+}
+
+BattleStateShowText = function() {
+    battleWaitTimeRemaining--;
+    if (battleWaitTimeRemaining <= 0) {
+        battleState = BattleStateDistributeXP; // Return to XP distribution
     }
 }
 

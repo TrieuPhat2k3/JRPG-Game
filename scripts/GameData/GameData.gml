@@ -69,7 +69,7 @@ global.actionLibrary =
 	 },
 	 heal :
 	 {
-		name : "Cat Food",
+		name : "Cat Food",	
 		description : "{0} casts Cat Food!",
 		subMenu : "Magic",
 		mpCost : 10,
@@ -135,8 +135,6 @@ enum MODE
 	VARIES = 2
 }
 
-
-
 //Party data
 global.party = 
 [
@@ -147,6 +145,9 @@ global.party =
 		mp: 15,
 		mpMax: 15,
 		strength: 6,
+		level: 1,
+		xp: 0,
+		xpToNextLevel: 50, // XP needed to reach level 2
 		sprites : { idle: sLuluIdle, attack: sLuluAttack, defend: sLuluDefend, down: sLuluDown},
 		actions : [global.actionLibrary.attack, global.actionLibrary.defend]
 	}
@@ -158,6 +159,9 @@ global.party =
 		mp: 30,
 		mpMax: 30,
 		strength: 4,
+		level: 1,
+		xp: 0,
+		xpToNextLevel: 50,
 		sprites : { idle: sQuestyIdle, attack: sQuestyCast, cast: sQuestyCast, down: sQuestyDown},
 		actions : [global.actionLibrary.attack, global.actionLibrary.ice, global.actionLibrary.fire]
 	}
