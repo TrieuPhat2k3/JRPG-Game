@@ -22,8 +22,10 @@
     {"name":"Timelines","order":7,"path":"folders/Timelines.yy",},
   ],
   "ResourceOrderSettings":[
+    {"name":"fnM3x6_1","order":4,"path":"fonts/fnM3x6_1/fnM3x6_1.yy",},
     {"name":"fnM3x6","order":2,"path":"fonts/fnM3x6/fnM3x6.yy",},
     {"name":"fnM5x7","order":1,"path":"fonts/fnM5x7/fnM5x7.yy",},
+    {"name":"fnOpenSansPX_1","order":3,"path":"fonts/fnOpenSansPX_1/fnOpenSansPX_1.yy",},
     {"name":"oBat","order":3,"path":"objects/oBat/oBat.yy",},
     {"name":"oBattleEffect","order":14,"path":"objects/oBattleEffect/oBattleEffect.yy",},
     {"name":"oBattleFloatingText","order":4,"path":"objects/oBattleFloatingText/oBattleFloatingText.yy",},

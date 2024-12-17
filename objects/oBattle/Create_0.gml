@@ -27,16 +27,45 @@ cursor =
 	active : false
 };
 
-// Make enemies
-for (var i = 0; i < array_length(enemies); i++) {
-    enemyUnits[i] = instance_create_depth(x + 250 + (i * 10), y + 68 + (i * 20), depth - 10, oBattleUnitEnemy, enemies[i]);
-    array_push(units, enemyUnits[i]);    
+// Define enemy and party positioning constants
+#macro ENEMY_START_X 250
+#macro ENEMY_START_Y 68
+#macro ENEMY_SPACING_X 10
+#macro ENEMY_SPACING_Y 20
+
+#macro PARTY_START_X 70
+#macro PARTY_START_Y 68
+#macro PARTY_SPACING_X 10
+#macro PARTY_SPACING_Y 15
+
+#macro MAX_ENEMIES 3 // Maximum number of enemies that can spawn
+#macro MIN_ENEMIES 1 // Minimum number of enemies
+
+// Array to store battle units
+enemyUnits = [];
+partyUnits = [];
+units = [];
+
+
+// Randomize number of enemies
+var enemyCount = irandom_range(MIN_ENEMIES, MAX_ENEMIES);
+
+// Spawn enemies with randomized count
+for (var i = 0; i < enemyCount; i++) {
+    var posX = x + ENEMY_START_X + (i * ENEMY_SPACING_X);
+    var posY = y + ENEMY_START_Y + (i * ENEMY_SPACING_Y);
+    
+    enemyUnits[i] = instance_create_depth(posX, posY, depth - 10, oBattleUnitEnemy, enemies[i mod array_length(enemies)]);
+    array_push(units, enemyUnits[i]);
 }
 
-// Make party members
+// Spawn party members
 for (var i = 0; i < array_length(global.party); i++) {
-    partyUnits[i] = instance_create_depth(x + 70 + (i * 10), y + 68 + (i * 15), depth - 10, oBattleUnitPC, global.party[i]);
-    array_push(units, partyUnits[i]);    
+    var posX = x + PARTY_START_X + (i * PARTY_SPACING_X);
+    var posY = y + PARTY_START_Y + (i * PARTY_SPACING_Y);
+    
+    partyUnits[i] = instance_create_depth(posX, posY, depth - 10, oBattleUnitPC, global.party[i]);
+    array_push(units, partyUnits[i]);
 }
 
 // Shuffle turn order

@@ -1,0 +1,1 @@
+NewEncounter([global.enemies.bat, global.enemies.bat], sBgField);

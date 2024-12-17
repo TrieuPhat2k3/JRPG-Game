@@ -1,17 +1,18 @@
 function NewEncounter(_enemies, _bg)
-{	
-	// Music plays
-	audio_play_sound(mus_battle1, true, true);
-	audio_sound_gain(mus_battle1, 0.2 ,0);
-	// Battle Stage
-	instance_create_depth
-	(
-		camera_get_view_x(view_camera[0]),
-		camera_get_view_y(view_camera[0]),
-		-9999,
-		oBattle,
-		{enemies: _enemies, creator: id, battleBackground: _bg}
-	);
+{
+    // Music plays
+    audio_play_sound(mus_battle1, true, true);
+    audio_sound_gain(mus_battle1, 0.2 ,0);
+    
+    // Battle Stage
+    instance_create_depth
+    (
+        camera_get_view_x(view_camera[0]),
+        camera_get_view_y(view_camera[0]),
+        -9999,
+        oBattle,
+        {enemies: _enemies, creator: id, battleBackground: _bg}
+    );
 }
 
 function BattleChangeHP(_target, _amount, _AliveDeadOrEither = 0)
