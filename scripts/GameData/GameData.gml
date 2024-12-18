@@ -70,7 +70,7 @@ global.actionLibrary =
 	 heal :
 	 {
 		name : "Cat Food",	
-		description : "{0} casts Cat Food!",
+		description : "{0} uses the Cat Food!",
 		subMenu : "Magic",
 		mpCost : 10,
 		targetRequired : true,

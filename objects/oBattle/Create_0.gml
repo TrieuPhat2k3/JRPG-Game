@@ -27,6 +27,63 @@ cursor =
 	active : false
 };
 
+// Define constants for enemy positioning
+#macro ENEMY_START_X 250
+#macro ENEMY_START_Y 68
+#macro ENEMY_SPACING_X 40
+#macro ENEMY_SPACING_Y 20
+#macro ROW_HEIGHT_LIMIT 120 // Limit height to avoid overlapping menu
+#macro MAX_ENEMIES 6 // Maximum number of enemies that can spawn
+#macro MIN_ENEMIES 1 // Minimum number of enemies
+
+// Define constants for party positioning
+#macro PARTY_START_X 70
+#macro PARTY_START_Y 68
+#macro PARTY_SPACING_X 10
+#macro PARTY_SPACING_Y 20
+
+// Initialize battle units
+enemyUnits = [];
+partyUnits = [];
+units = [];
+
+// Randomize number of enemies
+var enemyCount = irandom_range(MIN_ENEMIES, MAX_ENEMIES);
+
+// Spawn enemies
+for (var i = 0; i < enemyCount; i++) {
+    // Randomly choose enemy type
+    var enemyType = choose(global.enemies.slimeG, global.enemies.bat);
+
+    // Calculate position
+    var posX = x + ENEMY_START_X + ((i div 3) * ENEMY_SPACING_X); // Move horizontally after 3 enemies
+    var posY = y + ENEMY_START_Y + ((i mod 3) * ENEMY_SPACING_Y); // Stack vertically
+
+    // Ensure enemies don’t overlap the UI
+    if (posY > y + ROW_HEIGHT_LIMIT) {
+        posX += ENEMY_SPACING_X; // Shift horizontally for new row
+        posY = y + ENEMY_START_Y; // Reset Y position for new row
+    }
+
+    // Create enemy instance
+    var enemyInstance = instance_create_depth(posX, posY, depth - 10, oBattleUnitEnemy, enemyType);
+
+    // Add enemy to arrays
+    enemyUnits[i] = enemyInstance;
+    array_push(units, enemyInstance);
+}
+
+// Spawn party members
+for (var i = 0; i < array_length(global.party); i++) {
+    var posX = x + PARTY_START_X + (i * PARTY_SPACING_X);
+    var posY = y + PARTY_START_Y + (i * PARTY_SPACING_Y);
+
+    var partyInstance = instance_create_depth(posX, posY, depth - 10, oBattleUnitPC, global.party[i]);
+    partyUnits[i] = partyInstance;
+    array_push(units, partyInstance);
+}
+
+/*
 // Define enemy and party positioning constants
 #macro ENEMY_START_X 250
 #macro ENEMY_START_Y 68
@@ -67,7 +124,7 @@ for (var i = 0; i < array_length(global.party); i++) {
     partyUnits[i] = instance_create_depth(posX, posY, depth - 10, oBattleUnitPC, global.party[i]);
     array_push(units, partyUnits[i]);
 }
-
+*/
 // Shuffle turn order
 unitTurnOrder = array_shuffle(units);
 
