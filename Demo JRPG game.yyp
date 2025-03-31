@@ -66,6 +66,10 @@
     {"id":{"name":"oStartMenuQuit","path":"objects/oStartMenuQuit/oStartMenuQuit.yy",},},
     {"id":{"name":"rm_menu","path":"rooms/rm_menu/rm_menu.yy",},},
     {"id":{"name":"rm_testzone","path":"rooms/rm_testzone/rm_testzone.yy",},},
+    {"id":{"name":"rm_zone1","path":"rooms/rm_zone1/rm_zone1.yy",},},
+    {"id":{"name":"rm_zone2","path":"rooms/rm_zone2/rm_zone2.yy",},},
+    {"id":{"name":"rm_zone3","path":"rooms/rm_zone3/rm_zone3.yy",},},
+    {"id":{"name":"rm_zone4","path":"rooms/rm_zone4/rm_zone4.yy",},},
     {"id":{"name":"BattleFunction","path":"scripts/BattleFunction/BattleFunction.yy",},},
     {"id":{"name":"GameData","path":"scripts/GameData/GameData.yy",},},
     {"id":{"name":"Init","path":"scripts/Init/Init.yy",},},
@@ -137,6 +141,10 @@
   "RoomOrderNodes":[
     {"roomId":{"name":"rm_menu","path":"rooms/rm_menu/rm_menu.yy",},},
     {"roomId":{"name":"rm_testzone","path":"rooms/rm_testzone/rm_testzone.yy",},},
+    {"roomId":{"name":"rm_zone2","path":"rooms/rm_zone2/rm_zone2.yy",},},
+    {"roomId":{"name":"rm_zone1","path":"rooms/rm_zone1/rm_zone1.yy",},},
+    {"roomId":{"name":"rm_zone3","path":"rooms/rm_zone3/rm_zone3.yy",},},
+    {"roomId":{"name":"rm_zone4","path":"rooms/rm_zone4/rm_zone4.yy",},},
   ],
   "templateType":null,
   "TextureGroups":[
