@@ -110,8 +110,44 @@ function LevelUp(_character) {
     _character.hpMax += 10; // Increase max HP
     _character.mpMax += 5;  // Increase max MP
     _character.strength += 2; // Increase strength
-    _character.xp -= _character.xpToNextLevel; // Deduct XP for the new level
+    
+    // Don't subtract XP here, it's already handled in the battle state
+    // instead, just update the XP needed for next level
     _character.xpToNextLevel = ceil(_character.xpToNextLevel * 1.5); // Increase XP requirement
+    
     _character.hp = _character.hpMax; // Heal fully
     _character.mp = _character.mpMax; // Restore MP
+    
+    // Debug message
+    show_debug_message("LEVEL UP: " + _character.name + " is now level " + 
+                        string(_character.level) + " with " + 
+                        string(_character.hpMax) + " max HP and " + 
+                        string(_character.strength) + " strength");
+    show_debug_message("XP Progress: " + string(_character.xp) + "/" + 
+                        string(_character.xpToNextLevel) + " to next level");
+    
+    // Force update the global party data directly to ensure it persists
+    if (variable_global_exists("party")) {
+        for (var i = 0; i < array_length(global.party); i++) {
+            if (global.party[i].name == _character.name) {
+                global.party[i].level = _character.level;
+                global.party[i].hpMax = _character.hpMax;
+                global.party[i].mpMax = _character.mpMax;
+                global.party[i].strength = _character.strength;
+                global.party[i].xpToNextLevel = _character.xpToNextLevel;
+                global.party[i].hp = _character.hp;
+                global.party[i].mp = _character.mp;
+                global.party[i].xp = _character.xp;
+                
+                show_debug_message("Updated global party data for " + _character.name);
+                show_debug_message("PERSISTENT DATA: " + _character.name + 
+                                 " (Lv: " + string(global.party[i].level) + 
+                                 ", XP: " + string(global.party[i].xp) + "/" + 
+                                 string(global.party[i].xpToNextLevel) + ")");
+                break;
+            }
+        }
+    } else {
+        show_error("Critical error: global.party does not exist during level up!", false);
+    }
 }

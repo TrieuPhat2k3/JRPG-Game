@@ -16,6 +16,22 @@ if (variable_global_exists("battleOutcome") &&
     }
 }
 
+// Open inventory with 'I' key - FIXED to prevent rapid opening/closing
+if (keyboard_check_pressed(ord("I")) && !global.inBattle) {
+    // Check if inventory menu exists
+    if (!instance_exists(oInventoryMenu)) {
+        instance_create_depth(0, 0, -10000, oInventoryMenu);
+    }
+    
+    // Toggle inventory visibility
+    with (oInventoryMenu) {
+        // Only toggle if animations are not in progress
+        if (!opening && !closing) {
+            Toggle();
+        }
+    }
+}
+
 // Get input
 var _inputH = keyboard_check(ord("D")) - keyboard_check(ord("A"));
 var _inputV = keyboard_check(ord("S")) - keyboard_check(ord("W"));

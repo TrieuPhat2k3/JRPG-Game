@@ -126,37 +126,55 @@ enum MODE
 	VARIES = 2
 }
 
-//Party data
-global.party = 
-[
-	{
-		name: "Lulu",
-		hp: 89,
-		hpMax: 89,
-		mp: 15,
-		mpMax: 15,
-		strength: 6,
-		level: 1,
-		xp: 0,
-		xpToNextLevel: 50, // XP needed to reach level 2
-		sprites : { idle: sLuluIdle, attack: sLuluAttack, defend: sLuluDefend, down: sLuluDown},
-		actions : [global.actionLibrary.attack, global.actionLibrary.defend]
-	}
-	,
-	{
-		name: "Questy",
-		hp: 44,
-		hpMax: 44,
-		mp: 30,
-		mpMax: 30,
-		strength: 4,
-		level: 1,
-		xp: 0,
-		xpToNextLevel: 50,
-		sprites : { idle: sQuestyIdle, attack: sQuestyCast, cast: sQuestyCast, down: sQuestyDown},
-		actions : [global.actionLibrary.attack, global.actionLibrary.ice, global.actionLibrary.fire]
-	}
-]
+// Only initialize party data if it doesn't exist yet AND it hasn't been initialized before
+if (!variable_global_exists("party") && (!variable_global_exists("partyInitialized") || !global.partyInitialized)) {
+    show_debug_message("INITIALIZING PARTY DATA FOR THE FIRST TIME");
+    
+    //Party data
+    global.party = 
+    [
+        {
+            name: "Lulu",
+            hp: 89,
+            hpMax: 89,
+            mp: 15,
+            mpMax: 15,
+            strength: 6,
+            level: 1,
+            xp: 0,
+            xpToNextLevel: 50, // XP needed to reach level 2
+            sprites : { idle: sLuluIdle, attack: sLuluAttack, defend: sLuluDefend, down: sLuluDown},
+            actions : [global.actionLibrary.attack, global.actionLibrary.defend]
+        }
+        ,
+        {
+            name: "Questy",
+            hp: 44,
+            hpMax: 44,
+            mp: 30,
+            mpMax: 30,
+            strength: 4,
+            level: 1,
+            xp: 0,
+            xpToNextLevel: 50,
+            sprites : { idle: sQuestyIdle, attack: sQuestyCast, cast: sQuestyCast, down: sQuestyDown},
+            actions : [global.actionLibrary.attack, global.actionLibrary.ice, global.actionLibrary.fire]
+        }
+    ];
+    
+    // Mark that party has been initialized to prevent reinitializing
+    global.partyInitialized = true;
+    show_debug_message("PARTY DATA INITIALIZED - Set partyInitialized flag");
+} else if (variable_global_exists("party")) {
+    // Log existing party stats for debugging
+    show_debug_message("PARTY DATA ALREADY EXISTS - PRESERVING EXISTING DATA");
+    for (var i = 0; i < array_length(global.party); i++) {
+        show_debug_message("PRESERVED: " + global.party[i].name + 
+                         " (Lv: " + string(global.party[i].level) + 
+                         ", XP: " + string(global.party[i].xp) + "/" + 
+                         string(global.party[i].xpToNextLevel) + ")");
+    }
+}
 
 //Enemy Data
 global.enemies =

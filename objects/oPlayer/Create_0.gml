@@ -6,6 +6,16 @@ animIndex = 0;
 // Make player persistent across rooms
 persistent = true;
 
+// Initialize the game if this is the first instance
+if (instance_number(oPlayer) <= 1) {
+	// Initialize game data
+	GameInit();
+	show_debug_message("Game initialized on first player creation");
+}
+
+// Initialize invincibility variables
+invincible = false;
+
 function FourDirectionAnimate() {
 	// Update Sprite
 	var _animLength = sprite_get_number(sprite_index) / 4;
