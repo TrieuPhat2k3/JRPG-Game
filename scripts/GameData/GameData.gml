@@ -81,14 +81,7 @@ global.actionLibrary =
 		effectOnTarget : MODE.ALWAYS,
 		func : function(_user, _targets)
 		{
-			for (var i = 0; i < array_length(_targets); i++)
-			{
-				var _damage = irandom_range(15,20);
-				if (array_length(_targets) > 1) _damage = ceil(_damage*0.75);
-				BattleChangeHP(_targets[i], -_damage);
-			}
-			BattleChangeMP(_user, -global.actionLibrary.heal.mpCost);
-			
+			// Heal logic can be added here.
 		}
 	 },
 	 defend :
@@ -104,9 +97,7 @@ global.actionLibrary =
 		effectOnTarget : MODE.NEVER,
 		func : function(_user, _targets)
 		{
-			// Defend logics can be added here.
-			_user.defenseBoost = true;
-			_user.sprite_index = _user.sprites.defend;
+			// Defend logic can be added here.
 		}
 },
 	escape :

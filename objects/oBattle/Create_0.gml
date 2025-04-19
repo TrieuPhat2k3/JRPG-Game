@@ -1,5 +1,8 @@
 instance_deactivate_all(true); // Deactivate all instances except self (oBattle)
 
+// Add a variable to track if we're in a battle, to avoid confusion
+global.inBattle = true;
+
 units = [];
 turn = 0;
 unitTurnOrder = [];
@@ -13,6 +16,7 @@ battleText = "";
 currentUser = noone;
 currentAction = -1;
 currentTargets = noone;
+action_perform_timer = 0; // Initialize the action timer
 
 //Make targetting cursor
 cursor =
@@ -59,7 +63,7 @@ for (var i = 0; i < enemyCount; i++) {
     var posX = x + ENEMY_START_X + ((i div 3) * ENEMY_SPACING_X); // Move horizontally after 3 enemies
     var posY = y + ENEMY_START_Y + ((i mod 3) * ENEMY_SPACING_Y); // Stack vertically
 
-    // Ensure enemies don’t overlap the UI
+    // Ensure enemies don't overlap the UI
     if (posY > y + ROW_HEIGHT_LIMIT) {
         posX += ENEMY_SPACING_X; // Shift horizontally for new row
         posY = y + ENEMY_START_Y; // Reset Y position for new row
@@ -218,6 +222,7 @@ BeginAction = function(_user, _action, _targets) {
 	battleText = string_ext(_action.description, [_user.name]);
     if (!is_array(currentTargets)) currentTargets = [_targets];
     battleWaitTimeRemaining = battleWaitTimeFrames;
+    action_perform_timer = battleWaitTimeFrames; // Set the action timer
     with (_user) {
         acting = true;
         // Play user animation if defined
@@ -257,9 +262,51 @@ BattleStatePerformAction = function() {
         }
     } else {
         if (!instance_exists(oBattleEffect)) {
-            battleWaitTimeRemaining--;
-            if (battleWaitTimeRemaining == 0) {
-                battleState = BattleStateVictoryCheck;
+            // Decrement the action timer
+            action_perform_timer--;
+            
+            if (action_perform_timer <= 0) {
+                // Check if all enemies are defeated
+                var allEnemiesDefeated = true;
+                for (var i = 0; i < array_length(enemyUnits); i++) {
+                    if (enemyUnits[i].hp > 0) {
+                        allEnemiesDefeated = false;
+                        break;
+                    }
+                }
+                
+                // Check if all party members are defeated
+                var allPartyDefeated = true;
+                for (var i = 0; i < array_length(partyUnits); i++) {
+                    if (partyUnits[i].hp > 0) {
+                        allPartyDefeated = false;
+                        break;
+                    }
+                }
+                
+                // If all party members are defeated, go to game over
+                if (allPartyDefeated) {
+                    // Player has lost the battle
+                    // Stop battle music
+                    audio_stop_sound(mus_battle1);
+                    
+                    // Set the battle outcome to lose
+                    global.battleOutcome = "lose";
+                    
+                    // Display game over message
+                    battleText = "Game Over! Your party was defeated!";
+                    battleWaitTimeRemaining = 180;
+                    battleState = BattleStateGameOver;
+                    return;
+                }
+                
+                if (allEnemiesDefeated) {
+                    // All enemies are defeated, go straight to victory state
+                    battleState = BattleStateVictoryCheck;
+                } else {
+                    // Normal case - continue battle
+                    battleState = BattleStateTurnProgression;
+                }
             }
         }
     }
@@ -274,6 +321,31 @@ BattleStateVictoryCheck = function() {
             allEnemiesDefeated = false;
             break;
         }
+    }
+    
+    // Check if all party members are defeated
+    var allPartyDefeated = true;
+    for (var i = 0; i < array_length(partyUnits); i++) {
+        if (partyUnits[i].hp > 0) {
+            allPartyDefeated = false;
+            break;
+        }
+    }
+    
+    if (allPartyDefeated) {
+        // Player has lost the battle
+        // Stop battle music
+        audio_stop_sound(mus_battle1);
+        
+        // Set the battle outcome to lose
+        global.battleOutcome = "lose";
+        
+        // Display game over message
+        battleText = "Game Over! Your party was defeated!";
+        battleWaitTimeRemaining = 180;
+        battleState = BattleStateGameOver;
+        
+        return;
     }
     
     if (allEnemiesDefeated) {
@@ -291,7 +363,7 @@ BattleStateVictoryCheck = function() {
             }
         }
         
-        battleState = BattleStateDistributeXP; // Start XP distribution
+        battleState = BattleStateDistributeXP;
     } else {
         battleState = BattleStateTurnProgression;
     }
@@ -301,7 +373,105 @@ BattleStateDistributeXP = function() {
     if (currentPartyIndex >= array_length(global.party)) {
         // All party members have been processed; return to map
         global.battleOutcome = "win";
-        room_goto(rm_testzone);
+        show_debug_message("SET BATTLE OUTCOME TO WIN");
+        
+        // Make sure the battle manager has the correct enemy tag
+        if (instance_exists(oBattleManager) && variable_global_exists("battleEnemyInstance")) {
+            // Save the enemy tag to mark it as defeated
+            if (instance_exists(global.battleEnemyInstance)) {
+                with (global.battleEnemyInstance) {
+                    // Ensure enemy has a tag
+                    if (!variable_instance_exists(id, "enemyTag")) {
+                        if (object_index == oSlime) {
+                            enemyTag = "slime_" + string(room) + "_" + string(x) + "_" + string(y);
+                        } else if (object_index == oBat) {
+                            enemyTag = "bat_" + string(room) + "_" + string(x) + "_" + string(y);
+                        } else {
+                            enemyTag = "enemy_" + string(room) + "_" + string(x) + "_" + string(y);
+                        }
+                        show_debug_message("Created missing tag for enemy in battle: " + enemyTag);
+                    }
+                    
+                    // Make sure defeatedEnemies exists
+                    if (!variable_global_exists("defeatedEnemies") || !ds_exists(global.defeatedEnemies, ds_type_map)) {
+                        global.defeatedEnemies = ds_map_create();
+                        show_debug_message("Created defeatedEnemies map in battle victory");
+                    }
+                    
+                    oBattleManager.currentBattleEnemyTag = enemyTag;
+                    show_debug_message("Battle victory - saving enemy tag: " + enemyTag);
+                    
+                    // Mark as defeated right away
+                    if (variable_global_exists("defeatedEnemies") && ds_exists(global.defeatedEnemies, ds_type_map)) {
+                        if (!ds_map_exists(global.defeatedEnemies, enemyTag)) {
+                            ds_map_add(global.defeatedEnemies, enemyTag, true);
+                            show_debug_message("BATTLE VICTORY: Immediately marking enemy as defeated: " + enemyTag);
+                        } else {
+                            show_debug_message("NOTICE: Enemy already marked as defeated: " + enemyTag);
+                        }
+                    } else {
+                        show_debug_message("ERROR: defeatedEnemies map doesn't exist or is invalid!");
+                    }
+                }
+            } else {
+                show_debug_message("WARNING: battleEnemyInstance does not exist at victory!");
+            }
+        } else {
+            show_debug_message("ERROR: oBattleManager or battleEnemyInstance don't exist at victory!");
+        }
+        
+        // Force position update - CRITICAL
+        global.forceClearEnemies = true;
+        
+        // Direct enemy destruction before returning to the map
+        // This is a failsafe in case the oBattleManager approach fails
+        if (variable_global_exists("battleEnemyInstance") && instance_exists(global.battleEnemyInstance)) {
+            // Destroy the enemy directly before returning to the map
+            with(global.battleEnemyInstance) {
+                show_debug_message("DIRECTLY destroying enemy from battle: " + string(id));
+                instance_destroy();
+            }
+        }
+        
+        // Add additional logging
+        show_debug_message("BATTLE VICTORY - Enemy to destroy: " + string(global.battleEnemyInstance));
+        
+        // Clean up battle UI elements
+        with (oMenu) instance_destroy();
+        with (oBattleFloatingText) instance_destroy();
+        with (oBattleEffect) instance_destroy();
+        
+        // Mark that we're no longer in battle
+        global.inBattle = false;
+        
+        // Reactivate all instances before leaving the battle
+        instance_activate_all();
+        
+        // Make sure player position is properly saved
+        show_debug_message("Preparing to return player to: " + 
+                          string(global.playerPreBattleX) + ", " + 
+                          string(global.playerPreBattleY) + 
+                          " in room " + room_get_name(global.playerPreBattleRoom));
+        
+        // Return to previous room
+        room_goto(global.playerPreBattleRoom);
+        return;
+    }
+    
+    // Safety check - if all party members have 0 HP, just go to victory screen
+    var allPartyDead = true;
+    for (var i = 0; i < array_length(global.party); i++) {
+        if (global.party[i].hp > 0) {
+            allPartyDead = false;
+            break;
+        }
+    }
+    
+    if (allPartyDead) {
+        // Skip XP distribution if all party members are dead
+        currentPartyIndex = array_length(global.party);
+        // Call this function again to trigger the end battle logic
+        BattleStateDistributeXP();
         return;
     }
     
@@ -315,14 +485,17 @@ BattleStateDistributeXP = function() {
             
             // Show level-up text and pause
             battleText = partyMember.name + " leveled up to level " + string(partyMember.level) + "!";
-            battleWaitTimeRemaining = 180; // Wait ~3 seconds (60 frames per second)
-            battleState = BattleStateShowText; // Change state to show text
-            return; // Pause here and wait for the next state
+            battleWaitTimeRemaining = 180;
+            battleState = BattleStateShowText;
+            return;
         }
     }
     
     // Move to the next party member
     currentPartyIndex++;
+    
+    // Continue XP distribution in the next step
+    // Don't need to explicitly set the state because we're already in BattleStateDistributeXP
 }
 
 BattleStateShowText = function() {
@@ -346,3 +519,30 @@ BattleStateTurnProgression = function() {
 
 // Start the battle state machine
 battleState = BattleStateSelectAction;
+
+// Add new state for game over
+BattleStateGameOver = function() {
+    battleWaitTimeRemaining--;
+    if (battleWaitTimeRemaining <= 0) {
+        // Clean up battle UI elements
+        with (oMenu) instance_destroy();
+        with (oBattleFloatingText) instance_destroy();
+        with (oBattleEffect) instance_destroy();
+        
+        // Mark that we're no longer in battle
+        global.inBattle = false;
+        
+        // Make sure player position is properly saved
+        show_debug_message("Preparing to return player to: " + 
+                          string(global.playerPreBattleX) + ", " + 
+                          string(global.playerPreBattleY) + 
+                          " in room " + room_get_name(global.playerPreBattleRoom));
+        
+        // Reactivate all instances before leaving the battle
+        instance_activate_all();
+        
+        // Return to the previous room
+        room_goto(global.playerPreBattleRoom);
+        return;
+    }
+}

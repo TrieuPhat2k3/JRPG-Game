@@ -3,6 +3,9 @@ collisionLayer = layer_tilemap_get_id("Tiles_Collision");
 spdWalk = 2;
 animIndex = 0;
 
+// Make player persistent across rooms
+persistent = true;
+
 function FourDirectionAnimate() {
 	// Update Sprite
 	var _animLength = sprite_get_number(sprite_index) / 4;

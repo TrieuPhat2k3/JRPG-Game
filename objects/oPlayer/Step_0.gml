@@ -1,3 +1,21 @@
+// Add at the beginning of the step event 
+// Check if position was reset by something else after battle
+if (variable_global_exists("battleOutcome") && 
+    global.battleOutcome == "win" && 
+    variable_global_exists("playerPreBattleX") && 
+    variable_global_exists("playerPreBattleY")) {
+    
+    if (x != global.playerPreBattleX || y != global.playerPreBattleY) {
+        show_debug_message("WARNING: Player position was changed from " + 
+                          string(global.playerPreBattleX) + "," + string(global.playerPreBattleY) + 
+                          " to " + string(x) + "," + string(y));
+        
+        // Force reset position again
+        x = global.playerPreBattleX;
+        y = global.playerPreBattleY;
+    }
+}
+
 // Get input
 var _inputH = keyboard_check(ord("D")) - keyboard_check(ord("A"));
 var _inputV = keyboard_check(ord("S")) - keyboard_check(ord("W"));
@@ -17,7 +35,7 @@ if (!variable_instance_exists(self, "collisionLayer")) {
 var _collisionTileX = tilemap_get_at_pixel(collisionLayer, _newX, y);
 var _collisionTileY = tilemap_get_at_pixel(collisionLayer, x, _newY);
 
-// Allow movement in Y and X if there’s no collision in both directions
+// Allow movement in Y and X if there's no collision in both directions
 if (_collisionTileY == 0) {
     y = _newY;
 }

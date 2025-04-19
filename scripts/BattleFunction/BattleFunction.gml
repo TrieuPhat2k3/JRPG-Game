@@ -1,18 +1,60 @@
 function NewEncounter(_enemies, _bg)
 {
+    // Store player position and current room before battle
+    global.playerPreBattleX = oPlayer.x;
+    global.playerPreBattleY = oPlayer.y;
+    global.playerPreBattleRoom = room;
+    
+    // Force oPlayer to be persistent
+    oPlayer.persistent = true;
+    
+    // Double-check player position is saved correctly
+    show_debug_message("!!! CRITICAL !!! SAVED PLAYER POSITION: " + 
+                      string(global.playerPreBattleX) + ", " + 
+                      string(global.playerPreBattleY) + 
+                      " in room " + room_get_name(global.playerPreBattleRoom));
+    
+    // Store player position in a backup variable as well
+    oPlayer.lastX = global.playerPreBattleX;
+    oPlayer.lastY = global.playerPreBattleY;
+    oPlayer.lastRoom = global.playerPreBattleRoom;
+    
+    // Store enemy ID directly as a global variable
+    global.battleEnemyInstance = id; // This is the ID of the enemy that called this function
+    
+    // Double check we're saving the right instance
+    var enemyObjectName = object_get_name(object_index);
+    show_debug_message("Starting battle with enemy: " + enemyObjectName + " (ID: " + string(id) + ")");
+    
+    // Verify that the enemy instance is valid
+    if (!instance_exists(global.battleEnemyInstance)) {
+        show_debug_message("WARNING: battleEnemyInstance is not valid in NewEncounter!");
+    }
+    
+    // Store the instance ID in the battle manager for reliable tracking
+    if (instance_exists(oBattleManager)) {
+        oBattleManager.currentBattleEnemyID = id;
+        oBattleManager.currentBattleEnemyX = x;
+        oBattleManager.currentBattleEnemyY = y;
+        oBattleManager.currentBattleEnemyRoom = room;
+        
+        // Save the enemy tag if available
+        if (variable_instance_exists(id, "enemyTag")) {
+            oBattleManager.currentBattleEnemyTag = enemyTag;
+            show_debug_message("Saved enemy tag to battle manager: " + enemyTag);
+        }
+        
+        show_debug_message("Saved enemy ID to oBattleManager: " + string(id));
+    } else {
+        show_debug_message("WARNING: oBattleManager does not exist!");
+    }
+    
     // Music plays
     audio_play_sound(mus_battle1, true, true);
-    audio_sound_gain(mus_battle1, 0.2 ,0);
+    audio_sound_gain(mus_battle1, 0.2, 0);
     
-    // Battle Stage
-    instance_create_depth
-    (
-        camera_get_view_x(view_camera[0]),
-        camera_get_view_y(view_camera[0]),
-        -9999,
-        oBattle,
-        {enemies: _enemies, creator: id, battleBackground: _bg}
-    );
+    // Create battle room - this should save all the globals we just set
+    room_goto(rm_battle);
 }
 
 function BattleChangeHP(_target, _amount, _AliveDeadOrEither = 0)
