@@ -158,9 +158,78 @@ function BattleStateSelectAction()
 	        battleState = BattleStateVictoryCheck;
 	        return;
 	    }
-	    // Select an action to perform
-	    //BeginAction(_unit.id, global.actionLibrary.attack, _unit.id);
-	
+
+	    // Process status effects at the start of the turn
+	    if (variable_instance_exists(_unit, "statusEffects")) {
+	        var effectsToRemove = [];
+	        
+	        // Process each status effect
+	        for (var i = 0; i < array_length(_unit.statusEffects); i++) {
+	            var effect = _unit.statusEffects[i];
+	            effect.duration--;
+	            
+	            // Apply effect damage if applicable
+	            if (variable_struct_exists(effect.properties, "damage")) {
+	                var damage = floor(_unit.hpMax * effect.properties.damage);
+	                _unit.hp -= damage;
+	                // Show damage text
+	                instance_create_depth(_unit.x, _unit.y - 20, _unit.depth - 1, oBattleFloatingText, {
+	                    text: string(damage) + " " + effect.properties.name + " damage!",
+	                    color: effect.properties.color
+	                });
+	            }
+	            
+	            // Check if effect should be removed
+	            if (effect.duration <= 0) {
+	                // Show effect removal text
+	                instance_create_depth(_unit.x, _unit.y - 20, _unit.depth - 1, oBattleFloatingText, {
+	                    text: effect.properties.name + " wears off!",
+	                    color: c_white
+	                });
+	                array_push(effectsToRemove, i);
+	            }
+	        }
+	        
+	        // Remove expired effects (in reverse order to maintain array integrity)
+	        for (var i = array_length(effectsToRemove) - 1; i >= 0; i--) {
+	            array_delete(_unit.statusEffects, effectsToRemove[i], 1);
+	        }
+	    }
+
+	    // Check if unit should skip turn due to status effects
+	    if (variable_instance_exists(_unit, "statusEffects")) {
+	        var shouldSkip = false;
+	        for (var i = 0; i < array_length(_unit.statusEffects); i++) {
+	            var effect = _unit.statusEffects[i];
+	            
+	            // Check for guaranteed skip turn effects
+	            if (variable_struct_exists(effect.properties, "skipTurn") && effect.properties.skipTurn) {
+	                shouldSkip = true;
+	                break;
+	            }
+	            
+	            // Check for chance-based skip turn effects
+	            if (variable_struct_exists(effect.properties, "skipTurnChance")) {
+	                if (random(1) < effect.properties.skipTurnChance) {
+	                    shouldSkip = true;
+	                    break;
+	                }
+	            }
+	        }
+	        
+	        if (shouldSkip) {
+	            // Show skip turn text
+	            instance_create_depth(_unit.x, _unit.y - 20, _unit.depth - 1, oBattleFloatingText, {
+	                text: _unit.name + " is unable to act!",
+	                color: c_red
+	            });
+	            turn++;
+	            if (turn >= array_length(unitTurnOrder)) turn = 0;
+	            battleState = BattleStateSelectAction;
+	            return;
+	        }
+	    }
+
 		//If unit is player being controlled.
 		if (_unit.object_index == oBattleUnitPC)
 		{
