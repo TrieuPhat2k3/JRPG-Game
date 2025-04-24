@@ -32,6 +32,16 @@ if (keyboard_check_pressed(ord("I")) && !global.inBattle) {
     }
 }
 
+// Toggle stats box with 'O' key
+if (keyboard_check_pressed(ord("O"))) {
+    if (!instance_exists(oStatsBox)) {
+        instance_create_depth(0, 0, -10000, oStatsBox);
+    }
+    with (oStatsBox) {
+        Toggle();
+    }
+}
+
 // Get input
 var _inputH = keyboard_check(ord("D")) - keyboard_check(ord("A"));
 var _inputV = keyboard_check(ord("S")) - keyboard_check(ord("W"));
