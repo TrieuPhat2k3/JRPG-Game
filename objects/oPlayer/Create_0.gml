@@ -6,18 +6,6 @@ animIndex = 0;
 // Make player persistent across rooms
 persistent = true;
 
-// Initialize player stats
-name = "Hero";
-hp = 100;
-hpMax = 100;
-mp = 50;
-mpMax = 50;
-level = 1;
-experience = 0;
-expToNext = 100;
-attack = 10;
-defense = 5;
-
 // Initialize the game if this is the first instance
 if (instance_number(oPlayer) <= 1) {
 	// Initialize game data
