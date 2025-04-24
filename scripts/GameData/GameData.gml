@@ -99,7 +99,7 @@ global.actionLibrary =
 		{
 			// Defend logic can be added here.
 		}
-},
+	},
 	escape :
 	{
 		name : "Escape",
@@ -111,13 +111,32 @@ global.actionLibrary =
 		userAnimation : "idle", // No special animation
 		effectOnTarget : MODE.NEVER,
 		func : function(_user, _targets)
-    {
+		{
 		// Escape logic can be added here.
+		}
     },
+	curse :
+	{
+		name : "Curse",
+		description : "{0} casts Curse!",
+		subMenu : "Magic",
+		mpCost : 12,
+		targetRequired : true,
+		targetEnemyByDefault : true,
+		targetAll : MODE.VARIES,
+		userAnimation : "cast",
+		effectSprite : sAttackCure,
+		effectOnTarget : MODE.ALWAYS,
+		func : function(_user, _targets)
+		{
+			
+			BattleChangeMP(_user, -global.actionLibrary.sleep.mpCost);
+		}
+	 },
 	
 }
 	
-}
+
 
 enum MODE
 {
@@ -158,7 +177,7 @@ if (!variable_global_exists("party") && (!variable_global_exists("partyInitializ
             xp: 0,
             xpToNextLevel: 50,
             sprites : { idle: sQuestyIdle, attack: sQuestyCast, cast: sQuestyCast, down: sQuestyDown},
-            actions : [global.actionLibrary.attack, global.actionLibrary.ice, global.actionLibrary.fire]
+            actions : [global.actionLibrary.attack, global.actionLibrary.ice, global.actionLibrary.fire, global.actionLibrary.curse]
         }
     ];
     
