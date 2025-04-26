@@ -18,6 +18,13 @@ currentAction = -1;
 currentTargets = noone;
 action_perform_timer = 0; // Initialize the action timer
 
+// Initialize XP tracking variables
+totalBattleXP = 0;
+xpPerMember = 0;
+totalXP = 0;
+defeatedEnemyCount = 0;
+currentPartyIndex = 0;
+
 //Make targetting cursor
 cursor =
 {
@@ -350,7 +357,13 @@ BattleStateVictoryCheck = function() {
         // Player has lost the battle
         // Stop battle music
         audio_stop_sound(mus_battle1);
-        
+		
+        totalBattleXP = 0;
+		xpPerMember = 0;
+		totalXP = 0;
+		defeatedEnemyCount = 0;
+		currentPartyIndex = 0;
+		
         // Set the battle outcome to lose
         global.battleOutcome = "lose";
         
@@ -919,6 +932,6 @@ BattleStateGameOver = function() {
         room_goto(rm_menu);
     }
 }
-
 // Start the battle state machine
 battleState = BattleStateSelectAction;
+

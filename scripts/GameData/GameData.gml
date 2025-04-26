@@ -83,7 +83,7 @@ global.actionLibrary =
 		{
 			for (var i = 0; i < array_length(_targets); i++)
 			{
-				var _damage = irandom_range(18,22);
+				var _damage = irandom_range(10,20);
 				if (array_length(_targets) > 1) _damage = ceil(_damage*0.75);
 				BattleChangeHP(_targets[i], +_damage);
 			}
@@ -93,7 +93,7 @@ global.actionLibrary =
 	 recover :
 	 {
 		name : "Cat Candy",	
-		description : "{0} uses the Cat Food!",
+		description : "{0} uses the Cat Candy!",
 		subMenu : "Magic",
 		mpCost : 0,
 		targetRequired : true,
@@ -106,7 +106,7 @@ global.actionLibrary =
 		{
 			for (var i = 0; i < array_length(_targets); i++)
 			{
-				var _damage = irandom_range(18,22);
+				var _damage = irandom_range(10,20);
 				if (array_length(_targets) > 1) _damage = ceil(_damage*0.75);
 				BattleChangeMP(_targets[i], +_damage);
 			}
@@ -183,7 +183,7 @@ if (!variable_global_exists("party") && (!variable_global_exists("partyInitializ
     [
         {
             name: "Lulu",
-            hp: 89,
+            hp: 8,
             hpMax: 89,
             mp: 15,
             mpMax: 15,
@@ -197,7 +197,7 @@ if (!variable_global_exists("party") && (!variable_global_exists("partyInitializ
         ,
         {
             name: "Questy",
-            hp: 44,
+            hp: 4,
             hpMax: 44,
             mp: 30,
             mpMax: 30,

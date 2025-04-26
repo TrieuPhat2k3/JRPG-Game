@@ -25,9 +25,6 @@ y = posY;
 // Reset any depth or layer issues
 depth = -1000; // Make sure player is visible
 
-// Extra forceful position setting using more direct methods
-position_set(posX, posY);
-
 // Apply a brief cooldown to prevent immediate battles
 alarm[0] = 60; // 1 second invincibility
 invincible = true;
