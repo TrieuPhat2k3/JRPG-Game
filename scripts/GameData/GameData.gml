@@ -74,14 +74,43 @@ global.actionLibrary =
 		subMenu : "Magic",
 		mpCost : 10,
 		targetRequired : true,
-		targetEnemyByDefault : true,
+		targetEnemyByDefault : false,
 		targetAll : MODE.VARIES,
 		userAnimation : "cast",
 		effectSprite : sAttackHeal,
 		effectOnTarget : MODE.ALWAYS,
 		func : function(_user, _targets)
 		{
-			// Heal logic can be added here.
+			for (var i = 0; i < array_length(_targets); i++)
+			{
+				var _damage = irandom_range(18,22);
+				if (array_length(_targets) > 1) _damage = ceil(_damage*0.75);
+				BattleChangeHP(_targets[i], +_damage);
+			}
+			BattleChangeMP(_user, -global.actionLibrary.fire.mpCost);
+		}
+	 },
+	 recover :
+	 {
+		name : "Cat Candy",	
+		description : "{0} uses the Cat Food!",
+		subMenu : "Magic",
+		mpCost : 0,
+		targetRequired : true,
+		targetEnemyByDefault : false,
+		targetAll : MODE.VARIES,
+		userAnimation : "cast",
+		effectSprite : sAttackHeal,
+		effectOnTarget : MODE.ALWAYS,
+		func : function(_user, _targets)
+		{
+			for (var i = 0; i < array_length(_targets); i++)
+			{
+				var _damage = irandom_range(18,22);
+				if (array_length(_targets) > 1) _damage = ceil(_damage*0.75);
+				BattleChangeMP(_targets[i], +_damage);
+			}
+			//BattleChangeMP(_user, -global.actionLibrary.fire.mpCost);
 		}
 	 },
 	 defend :
@@ -177,7 +206,7 @@ if (!variable_global_exists("party") && (!variable_global_exists("partyInitializ
             xp: 0,
             xpToNextLevel: 50,
             sprites : { idle: sQuestyIdle, attack: sQuestyCast, cast: sQuestyCast, down: sQuestyDown},
-            actions : [global.actionLibrary.attack, global.actionLibrary.ice, global.actionLibrary.fire, global.actionLibrary.curse]
+            actions : [global.actionLibrary.attack, global.actionLibrary.ice, global.actionLibrary.fire, global.actionLibrary.heal, global.actionLibrary.recover]
         }
     ];
     
