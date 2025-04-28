@@ -37,12 +37,6 @@ function GameInit(){
         show_debug_message("Initialized battleXPEarned for emergency XP recovery");
     }
     
-    // Initialize player gold for shop system
-    if (!variable_global_exists("playerGold")) {
-        global.playerGold = 100; // Starting gold
-        show_debug_message("Initialized playerGold for shop system");
-    }
-    
     // Make sure inventory is initialized
     if (!variable_global_exists("inventory")) {
         InitInventory();

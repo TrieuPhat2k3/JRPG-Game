@@ -40,8 +40,6 @@
     {"name":"oBattleUnitPC","order":2,"path":"objects/oBattleUnitPC/oBattleUnitPC.yy",},
     {"name":"oEnemyDestroyer","order":4,"path":"objects/oEnemyDestroyer/oEnemyDestroyer.yy",},
     {"name":"oPlayer","order":2,"path":"objects/oPlayer/oPlayer.yy",},
-    {"name":"oShopKeeper","order":5,"path":"objects/oShopKeeper/oShopKeeper.yy",},
-    {"name":"oShopMenu","order":6,"path":"objects/oShopMenu/oShopMenu.yy",},
     {"name":"oSlime","order":1,"path":"objects/oSlime/oSlime.yy",},
     {"name":"oStartMenuControls","order":1,"path":"objects/oStartMenuControls/oStartMenuControls.yy",},
     {"name":"oStartMenuHelp","order":2,"path":"objects/oStartMenuHelp/oStartMenuHelp.yy",},
@@ -117,8 +115,11 @@
     {"name":"sSlime","order":4,"path":"sprites/sSlime/sSlime.yy",},
     {"name":"sSlimeAttack","order":1,"path":"sprites/sSlimeAttack/sSlimeAttack.yy",},
     {"name":"sTurnIndicator","order":2,"path":"sprites/sTurnIndicator/sTurnIndicator.yy",},
+<<<<<<< HEAD
     {"name":"sUpArrow","order":5,"path":"sprites/sUpArrow/sUpArrow.yy",},
     {"name":"sWarp","order":5,"path":"sprites/sWarp/sWarp.yy",},
+=======
+>>>>>>> parent of 7e78cac (Added shop system)
     {"name":"tCol","order":1,"path":"tilesets/tCol/tCol.yy",},
     {"name":"tHouseTiles","order":2,"path":"tilesets/tHouseTiles/tHouseTiles.yy",},
   ],
