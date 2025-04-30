@@ -37,15 +37,64 @@ function GameInit(){
         show_debug_message("Initialized battleXPEarned for emergency XP recovery");
     }
     
+    // Initialize player gold for shop system
+    if (!variable_global_exists("playerGold")) {
+        global.playerGold = 100; // Starting gold
+        show_debug_message("Initialized playerGold for shop system");
+    }
+    
     // Make sure inventory is initialized
     if (!variable_global_exists("inventory")) {
         InitInventory();
+    }
+    
+    // IMPORTANT: Make sure party data is initialized for character status screen
+    if (!variable_global_exists("party")) {
+        show_debug_message("CRITICAL: Party data missing, initializing...");
+        
+        //Party data
+        global.party = 
+        [
+            {
+                name: "Lulu",
+                hp: 89,
+                hpMax: 89,
+                mp: 15,
+                mpMax: 15,
+                strength: 6,
+                level: 1,
+                xp: 0,
+                xpToNextLevel: 50, // XP needed to reach level 2
+                sprites : { idle: sLuluIdle, attack: sLuluAttack, defend: sLuluDefend, down: sLuluDown},
+                actions : [] // Will be filled from actionLibrary later
+            }
+            ,
+            {
+                name: "Questy",
+                hp: 44,
+                hpMax: 44,
+                mp: 30,
+                mpMax: 30,
+                strength: 4,
+                level: 1,
+                xp: 0,
+                xpToNextLevel: 50,
+                sprites : { idle: sQuestyIdle, attack: sQuestyCast, cast: sQuestyCast, down: sQuestyDown},
+                actions : [] // Will be filled from actionLibrary later
+            }
+        ];
     }
     
     // Use a flag to ensure party data is only initialized once per game session
     if (!variable_global_exists("partyInitialized")) {
         global.partyInitialized = true;
         show_debug_message("GAME INIT: Setting partyInitialized flag to protect party data");
+    }
+    
+    // Create the mini-map if it doesn't exist
+    if (!instance_exists(oMiniMap)) {
+        instance_create_layer(0, 0, "Instances", oMiniMap);
+        show_debug_message("Created mini-map object");
     }
     
     show_debug_message("Game initialization complete");
@@ -160,6 +209,12 @@ function GameRestart() {
     if (argument_count > 0 && argument[0] == "new_game") {
         global.partyInitialized = false;
         show_debug_message("NEW GAME: Reset partyInitialized flag");
+    }
+    
+    // Create the mini-map if it doesn't exist
+    if (!instance_exists(oMiniMap)) {
+        instance_create_layer(0, 0, "Instances", oMiniMap);
+        show_debug_message("Created mini-map object during game restart");
     }
     
     show_debug_message("Game reset complete");

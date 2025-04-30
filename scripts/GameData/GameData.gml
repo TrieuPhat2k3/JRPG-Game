@@ -74,43 +74,14 @@ global.actionLibrary =
 		subMenu : "Magic",
 		mpCost : 10,
 		targetRequired : true,
-		targetEnemyByDefault : false,
+		targetEnemyByDefault : true,
 		targetAll : MODE.VARIES,
 		userAnimation : "cast",
 		effectSprite : sAttackHeal,
 		effectOnTarget : MODE.ALWAYS,
 		func : function(_user, _targets)
 		{
-			for (var i = 0; i < array_length(_targets); i++)
-			{
-				var _damage = irandom_range(10,20);
-				if (array_length(_targets) > 1) _damage = ceil(_damage*0.75);
-				BattleChangeHP(_targets[i], +_damage);
-			}
-			BattleChangeMP(_user, -global.actionLibrary.fire.mpCost);
-		}
-	 },
-	 recover :
-	 {
-		name : "Cat Candy",	
-		description : "{0} uses the Cat Candy!",
-		subMenu : "Magic",
-		mpCost : 0,
-		targetRequired : true,
-		targetEnemyByDefault : false,
-		targetAll : MODE.VARIES,
-		userAnimation : "cast",
-		effectSprite : sAttackHeal,
-		effectOnTarget : MODE.ALWAYS,
-		func : function(_user, _targets)
-		{
-			for (var i = 0; i < array_length(_targets); i++)
-			{
-				var _damage = irandom_range(10,20);
-				if (array_length(_targets) > 1) _damage = ceil(_damage*0.75);
-				BattleChangeMP(_targets[i], +_damage);
-			}
-			//BattleChangeMP(_user, -global.actionLibrary.fire.mpCost);
+			// Heal logic can be added here.
 		}
 	 },
 	 defend :
@@ -128,7 +99,7 @@ global.actionLibrary =
 		{
 			// Defend logic can be added here.
 		}
-	},
+},
 	escape :
 	{
 		name : "Escape",
@@ -140,32 +111,13 @@ global.actionLibrary =
 		userAnimation : "idle", // No special animation
 		effectOnTarget : MODE.NEVER,
 		func : function(_user, _targets)
-		{
+    {
 		// Escape logic can be added here.
-		}
     },
-	curse :
-	{
-		name : "Curse",
-		description : "{0} casts Curse!",
-		subMenu : "Magic",
-		mpCost : 12,
-		targetRequired : true,
-		targetEnemyByDefault : true,
-		targetAll : MODE.VARIES,
-		userAnimation : "cast",
-		effectSprite : sAttackCure,
-		effectOnTarget : MODE.ALWAYS,
-		func : function(_user, _targets)
-		{
-			
-			BattleChangeMP(_user, -global.actionLibrary.sleep.mpCost);
-		}
-	 },
 	
 }
 	
-
+}
 
 enum MODE
 {
@@ -183,7 +135,7 @@ if (!variable_global_exists("party") && (!variable_global_exists("partyInitializ
     [
         {
             name: "Lulu",
-            hp: 8,
+            hp: 89,
             hpMax: 89,
             mp: 15,
             mpMax: 15,
@@ -197,7 +149,7 @@ if (!variable_global_exists("party") && (!variable_global_exists("partyInitializ
         ,
         {
             name: "Questy",
-            hp: 4,
+            hp: 44,
             hpMax: 44,
             mp: 30,
             mpMax: 30,
@@ -206,7 +158,7 @@ if (!variable_global_exists("party") && (!variable_global_exists("partyInitializ
             xp: 0,
             xpToNextLevel: 50,
             sprites : { idle: sQuestyIdle, attack: sQuestyCast, cast: sQuestyCast, down: sQuestyDown},
-            actions : [global.actionLibrary.attack, global.actionLibrary.ice, global.actionLibrary.fire, global.actionLibrary.heal, global.actionLibrary.recover]
+            actions : [global.actionLibrary.attack, global.actionLibrary.ice, global.actionLibrary.fire]
         }
     ];
     

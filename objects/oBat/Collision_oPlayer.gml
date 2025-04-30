@@ -24,5 +24,5 @@ if (!variable_instance_exists(other, "invincible") || !other.invincible) {
     }
     
     // Call the updated NewEncounter function
-    NewEncounter([global.enemies.bat, global.enemies.bat], sBgField);
+    NewEncounter([global.enemies.bat], sBgField);
 }

@@ -71,3 +71,5 @@ if (global.forceClearEnemies) {
         }
     }
 }
+
+alarm[0] = 5; // Start the recurring enemy destroyer alarm

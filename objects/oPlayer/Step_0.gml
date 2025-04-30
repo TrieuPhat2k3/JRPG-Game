@@ -32,13 +32,24 @@ if (keyboard_check_pressed(ord("I")) && !global.inBattle) {
     }
 }
 
-// Toggle stats box with 'O' key
-if (keyboard_check_pressed(ord("O"))) {
-    if (!instance_exists(oStatsBox)) {
-        instance_create_depth(0, 0, -10000, oStatsBox);
-    }
-    with (oStatsBox) {
-        Toggle();
+// Toggle character status screen with 'G' key
+if (keyboard_check_pressed(ord("G")) && !global.inBattle) {
+    if (instance_exists(oCharacterStatus)) {
+        // Menu is already open, let it handle its own closing
+    } else {
+        // Create new status menu at player's position to ensure visibility
+        var statusMenu = instance_create_depth(x, y, -10000, oCharacterStatus);
+        
+        // Double-check creation
+        if (statusMenu != noone) {
+            // Ensure it's visible
+            statusMenu.visible = true;
+            
+            // Play open sound if available
+            if (audio_exists(snd_select)) {
+                audio_play_sound(snd_select, 1, false);
+            }
+        }
     }
 }
 
